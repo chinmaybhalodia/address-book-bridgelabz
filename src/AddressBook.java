@@ -16,10 +16,14 @@ public class AddressBook {
     }
 
     public void printAddressBook() {
+        if (this.addressbook.isEmpty()) {
+            System.out.println("\nAddress book is empty.");
+            return;
+        }
         System.out.println("\nContacts in this address book are: ");
         int i = 1;
         for (Map.Entry<String, Contact> entry : this.addressbook.entrySet()) {
-            System.out.println(i);
+            System.out.println(i + ")");
             entry.getValue().printContact();
             i++;
             System.out.println();
