@@ -10,7 +10,7 @@ public class App {
         // taking Console inputs
         takeConsoleInputs(book);
 
-        AddressBook.printAddressBook(book);
+        book.printAddressBook();
     }
 
     public static void takeConsoleInputs(AddressBook book) {
@@ -18,6 +18,7 @@ public class App {
         while (true) {
             System.out.println("Which function would you like to execute?");
             System.out.println("[1] Add New Contact");
+            System.out.println("[2] Edit Existing Contact");
             System.out.print("Enter your choice (Enter 0 to exit): ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -60,8 +61,101 @@ public class App {
                     System.out.println("Contact added successfully!\n");
                     break;
 
+                // UC3: edit the contact details by contact name
+                case 2:
+                    System.out.print("Enter first name of contact you wish to edit: ");
+                    String search_name = sc.nextLine().trim();
+
+                    if (book.addressbook.containsKey(search_name)) {
+                        Contact contact = book.addressbook.get(search_name);
+                        String new_first_name;
+                        System.out.println("\n\tFollowing fields can be edited for this contact:");
+                        System.out.println("\t[1] First Name");
+                        System.out.println("\t[2] Last Name");
+                        System.out.println("\t[3] Phone Number");
+                        System.out.println("\t[4] Address");
+                        System.out.println("\t[5] City");
+                        System.out.println("\t[6] State");
+                        System.out.println("\t[7] Zip");
+                        System.out.println("\t[8] Email");
+                        System.out.print("\tEnter field you wish to edit (enter 0 to exit): ");
+                        int edit_choice = sc.nextInt();
+                        sc.nextLine();
+
+                        switch (edit_choice) {
+                            case 0:
+                                break;
+
+                            case 1:
+                                System.out.print("\n\tEnter New First Name: ");
+                                new_first_name = sc.nextLine();
+                                book.addressbook.remove(search_name);
+                                contact.first_name = new_first_name;
+                                book.addressbook.put(new_first_name, contact);
+                                System.out.println("Contact Edited Successfully!\n");
+                                break;
+
+                            case 2:
+                                System.out.print("\n\tEnter New Last Name: ");
+                                contact.last_name = sc.nextLine();
+                                book.addressbook.put(search_name, contact);
+                                System.out.println("Contact Edited Successfully!\n");
+                                break;
+
+                            case 3:
+                                System.out.print("\n\tEnter New Phone Number: ");
+                                contact.phone_number = sc.nextLine();
+                                book.addressbook.put(search_name, contact);
+                                System.out.println("Contact Edited Successfully!\n");
+                                break;
+
+                            case 4:
+                                System.out.print("\n\tEnter New Address: ");
+                                contact.address = sc.nextLine();
+                                book.addressbook.put(search_name, contact);
+                                System.out.println("Contact Edited Successfully!\n");
+                                break;
+
+                            case 5:
+                                System.out.print("\n\tEnter New City: ");
+                                contact.city = sc.nextLine();
+                                book.addressbook.put(search_name, contact);
+                                System.out.println("Contact Edited Successfully!\n");
+                                break;
+
+                            case 6:
+                                System.out.print("\n\tEnter New State: ");
+                                contact.state = sc.nextLine();
+                                book.addressbook.put(search_name, contact);
+                                System.out.println("Contact Edited Successfully!\n");
+                                break;
+
+                            case 7:
+                                System.out.print("\n\tEnter New Zip Code: ");
+                                contact.zip = sc.nextInt();
+                                sc.nextLine();
+                                book.addressbook.put(search_name, contact);
+                                System.out.println("Contact Edited Successfully!\n");
+                                break;
+
+                            case 8:
+                                System.out.print("\n\tEnter New Email: ");
+                                contact.email = sc.nextLine();
+                                book.addressbook.put(search_name, contact);
+                                System.out.println("Contact Edited Successfully!\n");
+                                break;
+
+                            default:
+                                System.out.println("Invalid choice.");
+                                break;
+                        }
+                    } else {
+                        System.out.println("There is no contact having this first name.\n");
+                    }
+                    break;
+
                 default:
-                    System.out.println("Invalid Input.");
+                    System.out.println("Invalid choice.");
                     break;
             }
         }
