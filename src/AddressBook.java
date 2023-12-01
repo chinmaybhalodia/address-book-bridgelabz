@@ -14,7 +14,7 @@ public class AddressBook {
     }
 
     public static void printAddressBook(AddressBook book) {
-        System.out.println("Contacts in this address book are: ");
+        System.out.println("\nContacts in this address book are: ");
         for (int i = 0; i < book.addressbook.size(); i++) {
             System.out.println("(" + (i + 1) + ")");
             book.addressbook.get(i).printContact();
