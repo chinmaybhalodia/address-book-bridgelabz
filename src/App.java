@@ -4,14 +4,14 @@ import java.util.ArrayList;
 public class App {
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program");
+        App app = new App();
 
         // UC6: creating address book manager to handle multiple address books
         AddressBooksManager manager = new AddressBooksManager();
-
-        takeConsoleInputs(manager);
+        app.takeConsoleInputs(manager);
     }
 
-    public static void takeConsoleInputs(AddressBooksManager manager) {
+    public void takeConsoleInputs(AddressBooksManager manager) {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("\nFollowing functions can be executed:");
@@ -41,7 +41,7 @@ public class App {
                     String search_name = sc.nextLine();
                     if (manager.getBookbyName(search_name) != null) {
                         System.out.println("\nAccessing Address Book " + search_name);
-                        AddressBooksManager.accessBook(manager.getBookbyName(search_name));
+                        manager.accessBook(manager.getBookbyName(search_name));
                     } else {
                         System.out.println("No Address Book found with this name.");
                     }

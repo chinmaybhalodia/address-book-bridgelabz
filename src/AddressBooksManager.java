@@ -1,32 +1,53 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 // UC6: Address books manager to handle multiple address books
 public class AddressBooksManager {
     HashMap<String, AddressBook> addressBooks;
 
+    // UC9: store and save contacts by city and state
+    private HashMap<String, ArrayList<Contact>> cityContacts;
+    private HashMap<String, ArrayList<Contact>> stateContacts;
+
     public AddressBooksManager() {
         this.addressBooks = new HashMap<String, AddressBook>();
+        this.cityContacts = new HashMap<>();
+        this.stateContacts = new HashMap<>();
+    }
+
+    // method to update city contacts
+    public void updateCityContacts(String city, Contact contact) {
+        ArrayList<Contact> contacts;
+        if (cityContacts.containsKey(city)) {
+            contacts = cityContacts.get(city);
+        } else {
+            contacts = new ArrayList<>();
+        }
+        contacts.add(contact);
+        cityContacts.put(city, contacts);
+    }
+
+    // method to update state contacts
+    public void updateStateContacts(String state, Contact contact) {
+        ArrayList<Contact> contacts;
+        if (stateContacts.containsKey(state)) {
+            contacts = stateContacts.get(state);
+        } else {
+            contacts = new ArrayList<>();
+        }
+        contacts.add(contact);
+        stateContacts.put(state, contacts);
     }
 
     // UC8: method to search across all addressbooks with same city
     public ArrayList<Contact> findByCity(String city) {
-        ArrayList<Contact> contacts = new ArrayList<>();
-        for (Map.Entry<String, AddressBook> entry : this.addressBooks.entrySet()) {
-            contacts.addAll(entry.getValue().getAllbyCity(city));
-        }
-        return contacts;
+        return this.cityContacts.containsKey(city) ? this.cityContacts.get(city) : new ArrayList<Contact>();
     }
 
     // UC8: method to search across all addressbooks with same state
     public ArrayList<Contact> findByState(String state) {
-        ArrayList<Contact> contacts = new ArrayList<>();
-        for (Map.Entry<String, AddressBook> entry : this.addressBooks.entrySet()) {
-            contacts.addAll(entry.getValue().getAllbyState(state));
-        }
-        return contacts;
+        return this.stateContacts.containsKey(state) ? this.stateContacts.get(state) : new ArrayList<Contact>();
     }
 
     public AddressBook getBookbyName(String name) {
@@ -44,7 +65,7 @@ public class AddressBooksManager {
         addressBooks.put(name, new AddressBook(name));
     }
 
-    public static void accessBook(AddressBook book) {
+    public void accessBook(AddressBook book) {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("Which function would you like to execute?");
@@ -94,6 +115,12 @@ public class AddressBooksManager {
 
                     // adding new contact in the address book
                     book.addContact(first_name, last_name, address, city, state, zip, phone_number, email);
+
+                    // UC9: update city and state contacts
+                    this.updateCityContacts(city,
+                            new Contact(first_name, last_name, address, city, state, zip, phone_number, email));
+                    this.updateStateContacts(state,
+                            new Contact(first_name, last_name, address, city, state, zip, phone_number, email));
 
                     System.out.println("Contact added successfully!\n");
                     break;
