@@ -20,6 +20,12 @@ public class Contact {
         this.email = email;
     }
 
+    // UC7: method to check duplicate contact
+    public static boolean equals(String current, Contact contact) {
+        String existing = contact.first_name.toLowerCase().trim() + " " + contact.last_name.toLowerCase().trim();
+        return current.equals(existing);
+    }
+
     public void printContact() {
         System.out.println("First Name: " + this.first_name);
         System.out.println("Last Name: " + this.last_name);

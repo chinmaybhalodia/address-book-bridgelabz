@@ -45,6 +45,11 @@ public class AddressBooksManager {
                     System.out.print("Enter First Name: ");
                     String first_name = sc.nextLine();
 
+                    if (book.hasDuplicate(first_name)) {
+                        System.out.println("This contact already exists. You can choose to edit.\n");
+                        break;
+                    }
+
                     System.out.print("Enter Last Name: ");
                     String last_name = sc.nextLine();
 
@@ -76,7 +81,7 @@ public class AddressBooksManager {
                 // UC3: edit the contact details using contact's first name
                 case 2:
                     System.out.print("Enter first name of contact you wish to edit: ");
-                    String search_name = sc.nextLine().trim();
+                    String search_name = sc.nextLine().toLowerCase().trim();
 
                     if (book.addressbook.containsKey(search_name)) {
                         Contact contact = book.addressbook.get(search_name);

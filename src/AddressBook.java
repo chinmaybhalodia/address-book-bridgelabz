@@ -11,10 +11,16 @@ class AddressBook {
         this.addressbook = new HashMap<String, Contact>();
     }
 
+    // UC7: method to check for duplicate entry
+    public boolean hasDuplicate(String first_name) {
+        return this.addressbook.containsKey(first_name.toLowerCase().trim());
+    }
+
     // UC1: add new contact function
     public void addContact(String first_name, String last_name, String address, String city, String state, int zip,
             String phone_number, String email) {
-        addressbook.put(first_name, new Contact(first_name, last_name, address, city, state, zip, phone_number, email));
+        addressbook.put(first_name.toLowerCase().trim(),
+                new Contact(first_name, last_name, address, city, state, zip, phone_number, email));
     }
 
     public void printAddressBook() {
