@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -11,6 +10,27 @@ class AddressBook {
     public AddressBook(String name) {
         this.name = name;
         this.addressbook = new HashMap<String, Contact>();
+    }
+
+    // UC12: method to sort entries by city
+    public ArrayList<Contact> sortByCity() {
+        ArrayList<Contact> contacts = new ArrayList<>(this.addressbook.values());
+        contacts.sort((c1, c2) -> c1.city.compareTo(c2.city));
+        return contacts;
+    }
+
+    // UC12: method to sort entries by state
+    public ArrayList<Contact> sortByState() {
+        ArrayList<Contact> contacts = new ArrayList<>(this.addressbook.values());
+        contacts.sort((c1, c2) -> c1.state.compareTo(c2.state));
+        return contacts;
+    }
+
+    // UC12: method to sort entries by zip
+    public ArrayList<Contact> sortByZip() {
+        ArrayList<Contact> contacts = new ArrayList<>(this.addressbook.values());
+        contacts.sort((c1, c2) -> c2.zip - c1.zip);
+        return contacts;
     }
 
     // UC11: method to sort entries by name
