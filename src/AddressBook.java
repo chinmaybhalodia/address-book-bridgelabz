@@ -1,11 +1,13 @@
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map.Entry;
 
-public class AddressBook {
+class AddressBook {
     // UC3: used HashMap for efficient searching by name
+    String name; // UC6
     HashMap<String, Contact> addressbook;
 
-    public AddressBook() {
+    public AddressBook(String name) {
+        this.name = name;
         this.addressbook = new HashMap<String, Contact>();
     }
 
@@ -22,7 +24,7 @@ public class AddressBook {
         }
         System.out.println("\nContacts in this address book are: ");
         int i = 1;
-        for (Map.Entry<String, Contact> entry : this.addressbook.entrySet()) {
+        for (Entry<String, Contact> entry : this.addressbook.entrySet()) {
             System.out.println(i + ")");
             entry.getValue().printContact();
             i++;
