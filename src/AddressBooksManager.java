@@ -95,6 +95,7 @@ public class AddressBooksManager {
             System.out.println("[2] Edit Existing Contact");
             System.out.println("[3] Delete Existing Contact");
             System.out.println("[4] Print Address Book");
+            System.out.println("[5] Print Address Book sorted by Name");
             System.out.print("Enter your choice (Enter 0 to exit): ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -255,6 +256,19 @@ public class AddressBooksManager {
 
                 case 4:
                     book.printAddressBook();
+                    break;
+
+                // UC11: sort address book by name
+                case 5:
+                    ArrayList<Contact> sortedByName = book.sortByName();
+                    if (sortedByName.isEmpty()) {
+                        System.out.println("\nAddress book is empty.\n");
+                    } else {
+                        System.out.println("\nContacts in this address book are: ");
+                        for (int i = 0; i < sortedByName.size(); i++) {
+                            System.out.println((i + 1) + ")\n" + sortedByName.get(i).toString() + "\n");
+                        }
+                    }
                     break;
 
                 default:

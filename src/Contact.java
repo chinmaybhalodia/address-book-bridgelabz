@@ -26,14 +26,15 @@ public class Contact {
         return current.equals(existing);
     }
 
-    public void printContact() {
-        System.out.println("First Name: " + this.first_name);
-        System.out.println("Last Name: " + this.last_name);
-        System.out.println("Phone Number: " + this.phone_number);
-        System.out.println("Address: " + this.address);
-        System.out.println("City: " + this.city);
-        System.out.println("State: " + this.state);
-        System.out.println("Zip code: " + this.zip);
-        System.out.println("Email: " + this.email);
+    @Override
+    public String toString() {
+        return "First Name: " + this.first_name
+                + "\nLast Name: " + this.last_name
+                + "\nPhone Number: " + this.phone_number
+                + "\nAddress: " + this.address
+                + "\nCity: " + this.city
+                + "\nState: " + this.state
+                + "\nZip code: " + this.zip
+                + "\nEmail: " + this.email;
     }
 }
