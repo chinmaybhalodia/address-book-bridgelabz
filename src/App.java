@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
@@ -17,6 +18,8 @@ public class App {
             System.out.println("[1] Create New Address Book");
             System.out.println("[2] Access Address Book");
             System.out.println("[3] View all Address Books");
+            System.out.println("[4] Search contacts by City");
+            System.out.println("[5] Search contacts by State");
             System.out.print("Enter your choice (Enter 0 to exit): ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -47,6 +50,36 @@ public class App {
                 case 3:
                     System.out.println("Following are all the books in this manager:");
                     manager.getAllBooks();
+                    break;
+
+                case 4:
+                    System.out.print("Enter name of City: ");
+                    String city = sc.nextLine();
+                    ArrayList<Contact> city_contacts = manager.findByCity(city);
+                    if (city_contacts.isEmpty()) {
+                        System.out.println("No contacts found from " + city);
+                    } else {
+                        System.out.println("Contacts from " + city + " are:");
+                        for (int i = 0; i < city_contacts.size(); i++) {
+                            Contact contact = city_contacts.get(i);
+                            System.out.println("  " + (i + 1) + ") " + contact.first_name + " " + contact.last_name);
+                        }
+                    }
+                    break;
+
+                case 5:
+                    System.out.print("Enter name of State: ");
+                    String state = sc.nextLine();
+                    ArrayList<Contact> state_contacts = manager.findByState(state);
+                    if (state_contacts.isEmpty()) {
+                        System.out.println("No contacts found from " + state);
+                    } else {
+                        System.out.println("Contacts from " + state + " are:");
+                        for (int i = 0; i < state_contacts.size(); i++) {
+                            Contact contact = state_contacts.get(i);
+                            System.out.println("  " + (i + 1) + ") " + contact.first_name + " " + contact.last_name);
+                        }
+                    }
                     break;
 
                 default:

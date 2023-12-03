@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 // UC6: Address books manager to handle multiple address books
@@ -7,6 +9,24 @@ public class AddressBooksManager {
 
     public AddressBooksManager() {
         this.addressBooks = new HashMap<String, AddressBook>();
+    }
+
+    // UC8: method to search across all addressbooks with same city
+    public ArrayList<Contact> findByCity(String city) {
+        ArrayList<Contact> contacts = new ArrayList<>();
+        for (Map.Entry<String, AddressBook> entry : this.addressBooks.entrySet()) {
+            contacts.addAll(entry.getValue().getAllbyCity(city));
+        }
+        return contacts;
+    }
+
+    // UC8: method to search across all addressbooks with same state
+    public ArrayList<Contact> findByState(String state) {
+        ArrayList<Contact> contacts = new ArrayList<>();
+        for (Map.Entry<String, AddressBook> entry : this.addressBooks.entrySet()) {
+            contacts.addAll(entry.getValue().getAllbyState(state));
+        }
+        return contacts;
     }
 
     public AddressBook getBookbyName(String name) {

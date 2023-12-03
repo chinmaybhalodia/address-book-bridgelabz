@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -9,6 +10,28 @@ class AddressBook {
     public AddressBook(String name) {
         this.name = name;
         this.addressbook = new HashMap<String, Contact>();
+    }
+
+    // UC8: method to get all contacts by city
+    public ArrayList<Contact> getAllbyCity(String city) {
+        ArrayList<Contact> contacts = new ArrayList<>();
+        for (Entry<String, Contact> entry : this.addressbook.entrySet()) {
+            if (entry.getValue().city.equals(city)) {
+                contacts.add(entry.getValue());
+            }
+        }
+        return contacts;
+    }
+
+    // UC8: method to get all contacts by state
+    public ArrayList<Contact> getAllbyState(String state) {
+        ArrayList<Contact> contacts = new ArrayList<>();
+        for (Entry<String, Contact> entry : this.addressbook.entrySet()) {
+            if (entry.getValue().state.equals(state)) {
+                contacts.add(entry.getValue());
+            }
+        }
+        return contacts;
     }
 
     // UC7: method to check for duplicate entry
