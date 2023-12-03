@@ -16,6 +16,28 @@ public class AddressBooksManager {
         this.stateContacts = new HashMap<>();
     }
 
+    // UC10: get number of contacts from city
+    public int countInCity(String city) {
+        ArrayList<Contact> contacts;
+        if (cityContacts.containsKey(city)) {
+            contacts = cityContacts.get(city);
+        } else {
+            contacts = new ArrayList<>();
+        }
+        return contacts.size();
+    }
+
+    // UC10: get number of contacts from state
+    public int countInState(String state) {
+        ArrayList<Contact> contacts;
+        if (stateContacts.containsKey(state)) {
+            contacts = stateContacts.get(state);
+        } else {
+            contacts = new ArrayList<>();
+        }
+        return contacts.size();
+    }
+
     // method to update city contacts
     public void updateCityContacts(String city, Contact contact) {
         ArrayList<Contact> contacts;
