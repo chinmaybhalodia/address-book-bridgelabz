@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import Exceptions.*;
 
 // UC6: Address books manager to handle multiple address books
 public class AddressBooksManager {
@@ -87,7 +88,9 @@ public class AddressBooksManager {
         addressBooks.put(name, new AddressBook(name));
     }
 
-    public void accessBook(AddressBook book) {
+    public void accessBook(AddressBook book)
+            throws InvalidFirstNameException, InvalidLastNameException, InvalidEmailException,
+            InvalidPhoneNumberException {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("Which function would you like to execute?");
@@ -110,7 +113,17 @@ public class AddressBooksManager {
                 // UC2: adding contact from console
                 case 1:
                     System.out.print("Enter First Name: ");
-                    String first_name = sc.nextLine();
+                    String first_name;
+                    while (true) {
+                        try {
+                            first_name = sc.nextLine();
+                            Validator.validateFirstName(first_name);
+                            break;
+                        } catch (InvalidFirstNameException exception) {
+                            System.out.println("\n" + exception.getMessage());
+                            System.out.print("Enter First Name: ");
+                        }
+                    }
 
                     if (book.hasDuplicate(first_name)) {
                         System.out.println("This contact already exists. You can choose to edit.\n");
@@ -118,10 +131,30 @@ public class AddressBooksManager {
                     }
 
                     System.out.print("Enter Last Name: ");
-                    String last_name = sc.nextLine();
+                    String last_name;
+                    while (true) {
+                        try {
+                            last_name = sc.nextLine();
+                            Validator.validateLastName(last_name);
+                            break;
+                        } catch (InvalidLastNameException exception) {
+                            System.out.println("\n" + exception.getMessage());
+                            System.out.print("Enter Last Name: ");
+                        }
+                    }
 
                     System.out.print("Enter Phone Number: ");
-                    String phone_number = sc.nextLine();
+                    String phone_number;
+                    while (true) {
+                        try {
+                            phone_number = sc.nextLine();
+                            Validator.validatePhoneNumber(phone_number);
+                            break;
+                        } catch (InvalidPhoneNumberException exception) {
+                            System.out.println("\n" + exception.getMessage());
+                            System.out.print("Enter Phone Number: ");
+                        }
+                    }
 
                     System.out.print("Enter Address: ");
                     String address = sc.nextLine();
@@ -137,7 +170,17 @@ public class AddressBooksManager {
                     sc.nextLine();
 
                     System.out.print("Enter Email: ");
-                    String email = sc.nextLine();
+                    String email;
+                    while (true) {
+                        try {
+                            email = sc.nextLine();
+                            Validator.validateEmail(email);
+                            break;
+                        } catch (InvalidEmailException exception) {
+                            System.out.println("\n" + exception.getMessage());
+                            System.out.print("Enter Email: ");
+                        }
+                    }
 
                     // adding new contact in the address book
                     book.addContact(first_name, last_name, address, city, state, zip, phone_number, email);
@@ -178,7 +221,16 @@ public class AddressBooksManager {
 
                             case 1:
                                 System.out.print("\n\tEnter New First Name: ");
-                                new_first_name = sc.nextLine();
+                                while (true) {
+                                    try {
+                                        new_first_name = sc.nextLine();
+                                        Validator.validateFirstName(new_first_name);
+                                        break;
+                                    } catch (InvalidFirstNameException exception) {
+                                        System.out.println("\n\t" + exception.getMessage());
+                                        System.out.print("\n\tEnter New First Name: ");
+                                    }
+                                }
                                 book.addressbook.remove(search_name);
                                 contact.first_name = new_first_name;
                                 book.addressbook.put(new_first_name, contact);
@@ -187,14 +239,32 @@ public class AddressBooksManager {
 
                             case 2:
                                 System.out.print("\n\tEnter New Last Name: ");
-                                contact.last_name = sc.nextLine();
+                                while (true) {
+                                    try {
+                                        contact.last_name = sc.nextLine();
+                                        Validator.validateLastName(contact.last_name);
+                                        break;
+                                    } catch (InvalidLastNameException exception) {
+                                        System.out.println("\n\t" + exception.getMessage());
+                                        System.out.print("\n\tEnter New Last Name: ");
+                                    }
+                                }
                                 book.addressbook.put(search_name, contact);
                                 System.out.println("Contact Edited Successfully!\n");
                                 break;
 
                             case 3:
                                 System.out.print("\n\tEnter New Phone Number: ");
-                                contact.phone_number = sc.nextLine();
+                                while (true) {
+                                    try {
+                                        contact.phone_number = sc.nextLine();
+                                        Validator.validatePhoneNumber(contact.phone_number);
+                                        break;
+                                    } catch (InvalidPhoneNumberException exception) {
+                                        System.out.println("\n\t" + exception.getMessage());
+                                        System.out.print("\n\tEnter New Phone Number: ");
+                                    }
+                                }
                                 book.addressbook.put(search_name, contact);
                                 System.out.println("Contact Edited Successfully!\n");
                                 break;
@@ -230,7 +300,16 @@ public class AddressBooksManager {
 
                             case 8:
                                 System.out.print("\n\tEnter New Email: ");
-                                contact.email = sc.nextLine();
+                                while (true) {
+                                    try {
+                                        contact.email = sc.nextLine();
+                                        Validator.validateEmail(contact.email);
+                                        break;
+                                    } catch (InvalidEmailException exception) {
+                                        System.out.println("\n\t" + exception.getMessage());
+                                        System.out.print("\n\tEnter New Email: ");
+                                    }
+                                }
                                 book.addressbook.put(search_name, contact);
                                 System.out.println("Contact Edited Successfully!\n");
                                 break;

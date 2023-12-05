@@ -1,8 +1,12 @@
 import java.util.Scanner;
+
+import Exceptions.*;
 import java.util.ArrayList;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+            throws InvalidFirstNameException, InvalidLastNameException, InvalidEmailException,
+            InvalidPhoneNumberException {
         System.out.println("Welcome to Address Book Program");
         App app = new App();
 
@@ -11,7 +15,9 @@ public class App {
         app.takeConsoleInputs(manager);
     }
 
-    public void takeConsoleInputs(AddressBooksManager manager) {
+    public void takeConsoleInputs(AddressBooksManager manager)
+            throws InvalidFirstNameException, InvalidLastNameException, InvalidEmailException,
+            InvalidPhoneNumberException {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("\nFollowing functions can be executed:");
