@@ -28,13 +28,13 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "First Name: " + this.first_name
-                + "\nLast Name: " + this.last_name
-                + "\nPhone Number: " + this.phone_number
-                + "\nAddress: " + this.address
-                + "\nCity: " + this.city
-                + "\nState: " + this.state
-                + "\nZip code: " + this.zip
-                + "\nEmail: " + this.email;
+        return this.first_name + ","
+                + this.last_name + ","
+                + this.phone_number + ","
+                + this.address + ","
+                + this.city + ","
+                + this.state + ","
+                + this.zip + ","
+                + this.email;
     }
 }

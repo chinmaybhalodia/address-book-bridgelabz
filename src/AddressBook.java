@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -7,9 +8,14 @@ class AddressBook {
     String name; // UC6
     HashMap<String, Contact> addressbook;
 
-    public AddressBook(String name) {
+    // UC13: file path for address book
+    private String filePath;
+
+    public AddressBook(String name, String dirPath) {
         this.name = name;
         this.addressbook = new HashMap<String, Contact>();
+        this.filePath = dirPath + "/" + name + ".csv";
+        FileOperations.createFile(this.filePath); // creating new file for address book
     }
 
     // UC12: method to sort entries by city
@@ -70,22 +76,31 @@ class AddressBook {
     // UC1: add new contact function
     public void addContact(String first_name, String last_name, String address, String city, String state, int zip,
             String phone_number, String email) {
+        Contact contact = new Contact(first_name, last_name, address, city, state, zip, phone_number, email);
         addressbook.put(first_name.toLowerCase().trim(),
-                new Contact(first_name, last_name, address, city, state, zip, phone_number, email));
+                contact);
+
+        // UC13: adding contact to address book file
+        FileOperations.writeToFile(this.filePath, contact);
     }
 
     public void printAddressBook() {
-        if (this.addressbook.isEmpty()) {
-            System.out.println("\nAddress book is empty.");
-            return;
-        }
+        // if (this.addressbook.isEmpty()) {
+        // System.out.println("\nAddress book is empty.");
+        // return;
+        // }
         System.out.println("\nContacts in this address book are: ");
-        int i = 1;
-        for (Entry<String, Contact> entry : this.addressbook.entrySet()) {
-            System.out.println(i + ")");
-            System.out.println(entry.getValue().toString());
-            i++;
-            System.out.println();
+        // int i = 1;
+        // for (Entry<String, Contact> entry : this.addressbook.entrySet()) {
+        // System.out.println(i + ")");
+        // System.out.println(entry.getValue().toString());
+        // i++;
+        // System.out.println();
+        // }
+
+        ArrayList<Contact> contacts = FileOperations.readFromFile(this.filePath);
+        for (Contact contact : contacts) {
+            System.out.println(contact);
         }
     }
 }

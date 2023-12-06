@@ -11,10 +11,21 @@ public class AddressBooksManager {
     private HashMap<String, ArrayList<Contact>> cityContacts;
     private HashMap<String, ArrayList<Contact>> stateContacts;
 
-    public AddressBooksManager() {
+    // UC13: directory address to store files
+    private String directoryPath;
+
+    public AddressBooksManager(String dirPath) {
         this.addressBooks = new HashMap<String, AddressBook>();
         this.cityContacts = new HashMap<>();
         this.stateContacts = new HashMap<>();
+        this.directoryPath = dirPath;
+
+        // creating new directory to store addressbooks
+        FileOperations.createDirectory(this.directoryPath);
+    }
+
+    public String getDirectory() {
+        return this.directoryPath;
     }
 
     // UC10: get number of contacts from city
@@ -78,14 +89,17 @@ public class AddressBooksManager {
     }
 
     public void getAllBooks() {
-        if (addressBooks.isEmpty())
-            System.out.println("No Address Books added yet.");
-        else
-            System.out.println(addressBooks.keySet());
+        FileOperations.listFiles(this.directoryPath);
+
+        // if (addressBooks.isEmpty())
+        // System.out.println("No Address Books added yet.");
+        // else
+        // System.out.println(addressBooks.keySet());
+
     }
 
     public void createBook(String name) {
-        addressBooks.put(name, new AddressBook(name));
+        addressBooks.put(name, new AddressBook(name, this.directoryPath));
     }
 
     public void accessBook(AddressBook book)
@@ -95,13 +109,13 @@ public class AddressBooksManager {
         while (true) {
             System.out.println("Which function would you like to execute?");
             System.out.println("[1] Add New Contact");
-            System.out.println("[2] Edit Existing Contact");
-            System.out.println("[3] Delete Existing Contact");
+            System.out.println("[2] Edit Existing Contact"); // TODO: use file I/O
+            System.out.println("[3] Delete Existing Contact"); // TODO: use file I/O
             System.out.println("[4] Print Address Book");
-            System.out.println("[5] Print Address Book sorted by Name");
-            System.out.println("[6] Print Address Book sorted by City");
-            System.out.println("[7] Print Address Book sorted by State");
-            System.out.println("[8] Print Address Book sorted by Zip");
+            System.out.println("[5] Print Address Book sorted by Name"); // TODO: use file I/O
+            System.out.println("[6] Print Address Book sorted by City"); // TODO: use file I/O
+            System.out.println("[7] Print Address Book sorted by State"); // TODO: use file I/O
+            System.out.println("[8] Print Address Book sorted by Zip"); // TODO: use file I/O
             System.out.print("Enter your choice (Enter 0 to exit): ");
             int choice = sc.nextInt();
             sc.nextLine();

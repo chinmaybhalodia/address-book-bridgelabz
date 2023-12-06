@@ -11,7 +11,7 @@ public class App {
         App app = new App();
 
         // UC6: creating address book manager to handle multiple address books
-        AddressBooksManager manager = new AddressBooksManager();
+        AddressBooksManager manager = new AddressBooksManager("addressbooks");
         app.takeConsoleInputs(manager);
     }
 
@@ -22,7 +22,7 @@ public class App {
         while (true) {
             System.out.println("\nFollowing functions can be executed:");
             System.out.println("[1] Create New Address Book");
-            System.out.println("[2] Access Address Book");
+            System.out.println("[2] Access Address Book"); // TODO: use file I/O
             System.out.println("[3] View all Address Books");
             System.out.println("[4] Search contacts by City");
             System.out.println("[5] Search contacts by State");
