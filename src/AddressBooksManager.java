@@ -90,12 +90,6 @@ public class AddressBooksManager {
 
     public void getAllBooks() {
         FileOperations.listFiles(this.directoryPath);
-
-        // if (addressBooks.isEmpty())
-        // System.out.println("No Address Books added yet.");
-        // else
-        // System.out.println(addressBooks.keySet());
-
     }
 
     public void createBook(String name) {
@@ -112,10 +106,10 @@ public class AddressBooksManager {
             System.out.println("[2] Edit Existing Contact"); // TODO: use file I/O
             System.out.println("[3] Delete Existing Contact"); // TODO: use file I/O
             System.out.println("[4] Print Address Book");
-            System.out.println("[5] Print Address Book sorted by Name"); // TODO: use file I/O
-            System.out.println("[6] Print Address Book sorted by City"); // TODO: use file I/O
-            System.out.println("[7] Print Address Book sorted by State"); // TODO: use file I/O
-            System.out.println("[8] Print Address Book sorted by Zip"); // TODO: use file I/O
+            System.out.println("[5] Print Address Book sorted by Name");
+            System.out.println("[6] Print Address Book sorted by City");
+            System.out.println("[7] Print Address Book sorted by State");
+            System.out.println("[8] Print Address Book sorted by Zip");
             System.out.print("Enter your choice (Enter 0 to exit): ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -351,7 +345,17 @@ public class AddressBooksManager {
                     break;
 
                 case 4:
-                    book.printAddressBook();
+                    ArrayList<Contact> contacts = book.getAddressBook();
+                    if (contacts.isEmpty()) {
+                        System.out.println("\nAddress book is empty.\n");
+                    } else {
+                        System.out.println("\nContacts in this address book are: ");
+                        int i = 1;
+                        for (Contact contact : contacts) {
+                            System.out.println(i + ")\n" + contact + "\n");
+                            i++;
+                        }
+                    }
                     break;
 
                 // UC11: sort address book by name
@@ -361,8 +365,10 @@ public class AddressBooksManager {
                         System.out.println("\nAddress book is empty.\n");
                     } else {
                         System.out.println("\nContacts in this address book are: ");
-                        for (int i = 0; i < sortedByName.size(); i++) {
-                            System.out.println((i + 1) + ")\n" + sortedByName.get(i).toString() + "\n");
+                        int i = 1;
+                        for (Contact contact : sortedByName) {
+                            System.out.println(i + ")\n" + contact + "\n");
+                            i++;
                         }
                     }
                     break;
@@ -374,8 +380,10 @@ public class AddressBooksManager {
                         System.out.println("\nAddress book is empty.\n");
                     } else {
                         System.out.println("\nContacts in this address book are: ");
-                        for (int i = 0; i < sortedByCity.size(); i++) {
-                            System.out.println((i + 1) + ")\n" + sortedByCity.get(i).toString() + "\n");
+                        int i = 1;
+                        for (Contact contact : sortedByCity) {
+                            System.out.println(i + ")\n" + contact + "\n");
+                            i++;
                         }
                     }
                     break;
@@ -387,8 +395,10 @@ public class AddressBooksManager {
                         System.out.println("\nAddress book is empty.\n");
                     } else {
                         System.out.println("\nContacts in this address book are: ");
-                        for (int i = 0; i < sortedByState.size(); i++) {
-                            System.out.println((i + 1) + ")\n" + sortedByState.get(i).toString() + "\n");
+                        int i = 1;
+                        for (Contact contact : sortedByState) {
+                            System.out.println(i + ")\n" + contact + "\n");
+                            i++;
                         }
                     }
                     break;
@@ -400,8 +410,10 @@ public class AddressBooksManager {
                         System.out.println("\nAddress book is empty.\n");
                     } else {
                         System.out.println("\nContacts in this address book are: ");
-                        for (int i = 0; i < sortedByZip.size(); i++) {
-                            System.out.println((i + 1) + ")\n" + sortedByZip.get(i).toString() + "\n");
+                        int i = 1;
+                        for (Contact contact : sortedByZip) {
+                            System.out.println(i + ")\n" + contact + "\n");
+                            i++;
                         }
                     }
                     break;

@@ -26,8 +26,7 @@ public class Contact {
         return current.equals(existing);
     }
 
-    @Override
-    public String toString() {
+    public String toCSVString() {
         return this.first_name + ","
                 + this.last_name + ","
                 + this.phone_number + ","
@@ -36,5 +35,17 @@ public class Contact {
                 + this.state + ","
                 + this.zip + ","
                 + this.email;
+    }
+
+    @Override
+    public String toString() {
+        return "First Name: " + this.first_name
+                + "\nLast Name: " + this.last_name
+                + "\nPhone Number: " + this.phone_number
+                + "\nAddress: " + this.address
+                + "\nCity: " + this.city
+                + "\nState: " + this.state
+                + "\nZip code: " + this.zip
+                + "\nEmail: " + this.email;
     }
 }

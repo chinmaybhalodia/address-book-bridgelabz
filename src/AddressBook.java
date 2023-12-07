@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -20,29 +21,29 @@ class AddressBook {
 
     // UC12: method to sort entries by city
     public ArrayList<Contact> sortByCity() {
-        ArrayList<Contact> contacts = new ArrayList<>(this.addressbook.values());
-        contacts.sort((c1, c2) -> c1.city.compareTo(c2.city));
+        ArrayList<Contact> contacts = FileOperations.readFromFile(this.filePath);
+        contacts.sort(Comparator.comparing(contact -> contact.city));
         return contacts;
     }
 
     // UC12: method to sort entries by state
     public ArrayList<Contact> sortByState() {
-        ArrayList<Contact> contacts = new ArrayList<>(this.addressbook.values());
-        contacts.sort((c1, c2) -> c1.state.compareTo(c2.state));
+        ArrayList<Contact> contacts = FileOperations.readFromFile(this.filePath);
+        contacts.sort(Comparator.comparing(contact -> contact.state));
         return contacts;
     }
 
     // UC12: method to sort entries by zip
     public ArrayList<Contact> sortByZip() {
-        ArrayList<Contact> contacts = new ArrayList<>(this.addressbook.values());
-        contacts.sort((c1, c2) -> c2.zip - c1.zip);
+        ArrayList<Contact> contacts = FileOperations.readFromFile(this.filePath);
+        contacts.sort(Comparator.comparing(contact -> contact.zip));
         return contacts;
     }
 
     // UC11: method to sort entries by name
     public ArrayList<Contact> sortByName() {
-        ArrayList<Contact> contacts = new ArrayList<>(this.addressbook.values());
-        contacts.sort((c1, c2) -> c1.first_name.compareTo(c2.first_name));
+        ArrayList<Contact> contacts = FileOperations.readFromFile(this.filePath);
+        contacts.sort(Comparator.comparing(contact -> contact.first_name));
         return contacts;
     }
 
@@ -84,23 +85,7 @@ class AddressBook {
         FileOperations.writeToFile(this.filePath, contact);
     }
 
-    public void printAddressBook() {
-        // if (this.addressbook.isEmpty()) {
-        // System.out.println("\nAddress book is empty.");
-        // return;
-        // }
-        System.out.println("\nContacts in this address book are: ");
-        // int i = 1;
-        // for (Entry<String, Contact> entry : this.addressbook.entrySet()) {
-        // System.out.println(i + ")");
-        // System.out.println(entry.getValue().toString());
-        // i++;
-        // System.out.println();
-        // }
-
-        ArrayList<Contact> contacts = FileOperations.readFromFile(this.filePath);
-        for (Contact contact : contacts) {
-            System.out.println(contact);
-        }
+    public ArrayList<Contact> getAddressBook() {
+        return FileOperations.readFromFile(this.filePath);
     }
 }

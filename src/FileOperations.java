@@ -31,6 +31,7 @@ public class FileOperations {
                     }
                 }
             } catch (IOException exception) {
+                System.out.println(exception.getMessage());
                 exception.printStackTrace();
             }
             return data;
@@ -41,11 +42,35 @@ public class FileOperations {
 
     // method to write data to file
     public static void writeToFile(String filePath, Contact contact) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
-            writer.println(contact);
-        } catch (IOException exception) {
-            System.out.println(exception.getMessage());
-            exception.printStackTrace();
+        if (checkIfExists(filePath)) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(filePath, true))) {
+                writer.println(contact.toCSVString());
+                writer.println();
+            } catch (IOException exception) {
+                System.out.println(exception.getMessage());
+                exception.printStackTrace();
+            }
+        } else {
+            System.out.println("File " + filePath + " does not exist");
+        }
+    }
+
+    // method to delete data from file
+    public static void deleteFromFile(String filePath, String delete_name) {
+        if (checkIfExists(filePath)) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith(delete_name)) {
+                        // TODO: something to delete
+                    }
+                }
+            } catch (IOException exception) {
+                System.out.println(exception.getMessage());
+                exception.printStackTrace();
+            }
+        } else {
+            System.out.println("File " + filePath + " does not exist");
         }
     }
 
