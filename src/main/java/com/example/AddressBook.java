@@ -24,28 +24,28 @@ class AddressBook {
 
     // UC12: method to sort entries by city
     public ArrayList<Contact> sortByCity() {
-        ArrayList<Contact> contacts = JSONOperations.readFromFile(this.filePath);
+        ArrayList<Contact> contacts = DBOperations.readContacts();
         contacts.sort(Comparator.comparing(contact -> contact.city));
         return contacts;
     }
 
     // UC12: method to sort entries by state
     public ArrayList<Contact> sortByState() {
-        ArrayList<Contact> contacts = JSONOperations.readFromFile(this.filePath);
+        ArrayList<Contact> contacts = DBOperations.readContacts();
         contacts.sort(Comparator.comparing(contact -> contact.state));
         return contacts;
     }
 
     // UC12: method to sort entries by zip
     public ArrayList<Contact> sortByZip() {
-        ArrayList<Contact> contacts = JSONOperations.readFromFile(this.filePath);
+        ArrayList<Contact> contacts = DBOperations.readContacts();
         contacts.sort(Comparator.comparing(contact -> contact.zip));
         return contacts;
     }
 
     // UC11: method to sort entries by name
     public ArrayList<Contact> sortByName() {
-        ArrayList<Contact> contacts = JSONOperations.readFromFile(this.filePath);
+        ArrayList<Contact> contacts = DBOperations.readContacts();
         contacts.sort(Comparator.comparing(contact -> contact.first_name));
         return contacts;
     }
@@ -97,5 +97,17 @@ class AddressBook {
     // method to get contacts added between dates
     public ArrayList<Contact> addedBetweenDates(String start_date, String end_date) {
         return DBOperations.addedBetweenDates(start_date, end_date);
+    }
+
+    // method to get count of contacts from city
+    public int counContactsInCity(String city) {
+        HashMap<String, Integer> contactsByCity = DBOperations.countContactsByCity();
+        return contactsByCity.containsKey(city) ? contactsByCity.get(city) : 0;
+    }
+
+    // method to get count of contacts from city
+    public int counContactsInState(String state) {
+        HashMap<String, Integer> contactsByState = DBOperations.countContactsByState();
+        return contactsByState.containsKey(state) ? contactsByState.get(state) : 0;
     }
 }

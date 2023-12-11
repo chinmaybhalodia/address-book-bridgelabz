@@ -112,6 +112,8 @@ public class AddressBooksManager {
             System.out.println("[7] Print Address Book sorted by State");
             System.out.println("[8] Print Address Book sorted by Zip");
             System.out.println("[9] Print Contacts added between Dates");
+            System.out.println("[10] Count Contacts by City");
+            System.out.println("[11] Count Contacts by State");
             System.out.print("Enter your choice (Enter 0 to exit): ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -444,6 +446,28 @@ public class AddressBooksManager {
                             System.out.println(i + ")\n" + contact + "\n");
                             i++;
                         }
+                    }
+                    break;
+
+                case 10:
+                    System.out.print("Enter name of the City: ");
+                    String search_city = sc.nextLine();
+                    int city_count = book.counContactsInCity(search_city);
+                    if (city_count == 0) {
+                        System.out.println("\nNo contacts found in " + search_city + ".\n");
+                    } else {
+                        System.out.println("\n" + city_count + " contacts found in city " + search_city + ".\n");
+                    }
+                    break;
+
+                case 11:
+                    System.out.print("Enter name of the State: ");
+                    String search_state = sc.nextLine();
+                    int state_count = book.counContactsInState(search_state);
+                    if (state_count == 0) {
+                        System.out.println("\nNo contacts found in " + search_state + ".\n");
+                    } else {
+                        System.out.println("\n" + state_count + " contacts found in state " + search_state + ".\n");
                     }
                     break;
 

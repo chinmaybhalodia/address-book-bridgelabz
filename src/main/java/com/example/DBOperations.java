@@ -2,6 +2,7 @@ package com.example;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DBOperations {
     // method to connect with the database
@@ -172,5 +173,47 @@ public class DBOperations {
             return new ArrayList<>();
         }
         return contactList;
+    }
+
+    // method to get count of contacts by city
+    public static HashMap<String, Integer> countContactsByCity() {
+        HashMap<String, Integer> cityCount = new HashMap<>();
+        String sqlQuery = "select city, count(city) as count from address_details group by city";
+        try (
+                Connection connection = getConnection();
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sqlQuery);) {
+            while (resultSet.next()) {
+                String city = resultSet.getString("city");
+                int count = resultSet.getInt("count");
+                cityCount.put(city, count);
+            }
+            return cityCount;
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+            exception.printStackTrace();
+            return new HashMap<>();
+        }
+    }
+
+    // method to get count of contacts by state
+    public static HashMap<String, Integer> countContactsByState() {
+        HashMap<String, Integer> stateCount = new HashMap<>();
+        String sqlQuery = "select state, count(state) as count from address_details group by state";
+        try (
+                Connection connection = getConnection();
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sqlQuery);) {
+            while (resultSet.next()) {
+                String state = resultSet.getString("state");
+                int count = resultSet.getInt("count");
+                stateCount.put(state, count);
+            }
+            return stateCount;
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+            exception.printStackTrace();
+            return new HashMap<>();
+        }
     }
 }
