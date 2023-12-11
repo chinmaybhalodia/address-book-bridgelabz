@@ -206,11 +206,14 @@ public class AddressBooksManager {
                 // UC3: edit the contact details using contact's first name
                 case 2:
                     System.out.print("Enter first name of contact you wish to edit: ");
-                    String search_name = sc.nextLine().toLowerCase().trim();
+                    String search_first_name = sc.nextLine().toLowerCase().trim();
 
-                    if (book.addressbook.containsKey(search_name)) {
-                        Contact contact = book.addressbook.get(search_name);
-                        String new_first_name;
+                    System.out.print("Enter last name of contact you wish to edit: ");
+                    String search_last_name = sc.nextLine().toLowerCase().trim();
+
+                    if (DBOperations.contactExists(search_first_name, search_last_name)) {
+                        int person_id = DBOperations.getPersonID(search_first_name, search_last_name);
+                        int address_id = DBOperations.getAddressID(search_first_name, search_last_name);
                         System.out.println("\n\tFollowing fields can be edited for this contact:");
                         System.out.println("\t[1] First Name");
                         System.out.println("\t[2] Last Name");
@@ -221,6 +224,7 @@ public class AddressBooksManager {
                         System.out.println("\t[7] Zip");
                         System.out.println("\t[8] Email");
                         System.out.print("\tEnter field you wish to edit (enter 0 to exit): ");
+
                         int edit_choice = sc.nextInt();
                         sc.nextLine();
 
@@ -230,96 +234,98 @@ public class AddressBooksManager {
 
                             case 1:
                                 System.out.print("\n\tEnter New First Name: ");
+                                String contact_first_name;
                                 while (true) {
                                     try {
-                                        new_first_name = sc.nextLine();
-                                        Validator.validateFirstName(new_first_name);
+                                        contact_first_name = sc.nextLine();
+                                        Validator.validateFirstName(contact_first_name);
                                         break;
                                     } catch (InvalidFirstNameException exception) {
                                         System.out.println("\n\t" + exception.getMessage());
                                         System.out.print("\n\tEnter New First Name: ");
                                     }
                                 }
-                                book.addressbook.remove(search_name);
-                                contact.first_name = new_first_name;
-                                book.addressbook.put(new_first_name, contact);
+                                DBOperations.updatePersonDetail("first_name", contact_first_name, person_id);
                                 System.out.println("Contact Edited Successfully!\n");
                                 break;
 
                             case 2:
                                 System.out.print("\n\tEnter New Last Name: ");
+                                String contact_last_name;
                                 while (true) {
                                     try {
-                                        contact.last_name = sc.nextLine();
-                                        Validator.validateLastName(contact.last_name);
+                                        contact_last_name = sc.nextLine();
+                                        Validator.validateLastName(contact_last_name);
                                         break;
                                     } catch (InvalidLastNameException exception) {
                                         System.out.println("\n\t" + exception.getMessage());
                                         System.out.print("\n\tEnter New Last Name: ");
                                     }
                                 }
-                                book.addressbook.put(search_name, contact);
+                                DBOperations.updatePersonDetail("last_name", contact_last_name, person_id);
                                 System.out.println("Contact Edited Successfully!\n");
                                 break;
 
                             case 3:
                                 System.out.print("\n\tEnter New Phone Number: ");
+                                String contact_phone_number;
                                 while (true) {
                                     try {
-                                        contact.phone_number = sc.nextLine();
-                                        Validator.validatePhoneNumber(contact.phone_number);
+                                        contact_phone_number = sc.nextLine();
+                                        Validator.validatePhoneNumber(contact_phone_number);
                                         break;
                                     } catch (InvalidPhoneNumberException exception) {
                                         System.out.println("\n\t" + exception.getMessage());
                                         System.out.print("\n\tEnter New Phone Number: ");
                                     }
                                 }
-                                book.addressbook.put(search_name, contact);
+                                DBOperations.updatePersonDetail("phone", contact_phone_number, person_id);
                                 System.out.println("Contact Edited Successfully!\n");
                                 break;
 
                             case 4:
                                 System.out.print("\n\tEnter New Address: ");
-                                contact.address = sc.nextLine();
-                                book.addressbook.put(search_name, contact);
+                                String contact_address = sc.nextLine();
+                                DBOperations.updateAddressDetail("address", contact_address, address_id);
                                 System.out.println("Contact Edited Successfully!\n");
                                 break;
 
                             case 5:
                                 System.out.print("\n\tEnter New City: ");
-                                contact.city = sc.nextLine();
-                                book.addressbook.put(search_name, contact);
+                                String contact_city = sc.nextLine();
+                                DBOperations.updateAddressDetail("city", contact_city, address_id);
                                 System.out.println("Contact Edited Successfully!\n");
                                 break;
 
                             case 6:
                                 System.out.print("\n\tEnter New State: ");
-                                contact.state = sc.nextLine();
-                                book.addressbook.put(search_name, contact);
+                                String contact_state = sc.nextLine();
+                                DBOperations.updateAddressDetail("state", contact_state, address_id);
                                 System.out.println("Contact Edited Successfully!\n");
                                 break;
 
                             case 7:
                                 System.out.print("\n\tEnter New Zip Code: ");
-                                contact.zip = sc.nextInt();
+                                int contact_zip = sc.nextInt();
                                 sc.nextLine();
-                                book.addressbook.put(search_name, contact);
+                                DBOperations.updateAddressDetail("zip", Integer.toString(contact_zip), address_id);
                                 System.out.println("Contact Edited Successfully!\n");
                                 break;
 
                             case 8:
                                 System.out.print("\n\tEnter New Email: ");
+                                String contact_email;
                                 while (true) {
                                     try {
-                                        contact.email = sc.nextLine();
-                                        Validator.validateEmail(contact.email);
+                                        contact_email = sc.nextLine();
+                                        Validator.validateEmail(contact_email);
                                         break;
                                     } catch (InvalidEmailException exception) {
                                         System.out.println("\n\t" + exception.getMessage());
                                         System.out.print("\n\tEnter New Email: ");
                                     }
                                 }
-                                book.addressbook.put(search_name, contact);
+                                DBOperations.updatePersonDetail("email", contact_email, person_id);
                                 System.out.println("Contact Edited Successfully!\n");
                                 break;
 
