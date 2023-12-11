@@ -216,3 +216,16 @@ select type, count(type) from address_book_2 group by type;
 -- output to above query
 -- Family	3
 -- Friend	2
+
+-- UC18
+-- adding the date_added attribute to contacts
+alter table address_book_2 add column date_added date not null;
+update address_book_2 set date_added = "2023-12-11";
+select * from address_book_2;
+
+-- output to above query
+-- 1	1	book2	Family	2023-12-11
+-- 2	2	book2	Family	2023-12-11
+-- 3	3	book2	Friend	2023-12-11
+-- 4	4	book2	Friend	2023-12-11
+-- 5	5	book2	Family	2023-12-11

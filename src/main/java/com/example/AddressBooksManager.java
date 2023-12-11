@@ -111,6 +111,7 @@ public class AddressBooksManager {
             System.out.println("[6] Print Address Book sorted by City");
             System.out.println("[7] Print Address Book sorted by State");
             System.out.println("[8] Print Address Book sorted by Zip");
+            System.out.println("[9] Print Contacts added between Dates");
             System.out.print("Enter your choice (Enter 0 to exit): ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -419,6 +420,27 @@ public class AddressBooksManager {
                         System.out.println("\nContacts in this address book are: ");
                         int i = 1;
                         for (Contact contact : sortedByZip) {
+                            System.out.println(i + ")\n" + contact + "\n");
+                            i++;
+                        }
+                    }
+                    break;
+
+                // UC18: getting contacts added between dates
+                case 9:
+                    System.out.print("Enter Start Date (YYYY-MM-DD): ");
+                    String start_date = sc.nextLine();
+
+                    System.out.print("Enter End Date (YYYY-MM-DD): ");
+                    String end_date = sc.nextLine();
+
+                    ArrayList<Contact> addedBetweenDates = book.addedBetweenDates(start_date, end_date);
+                    if (addedBetweenDates.isEmpty()) {
+                        System.out.println("\nNo contacts added between given dates.\n");
+                    } else {
+                        System.out.println("\nContacts added between " + start_date + " and " + end_date + " are:");
+                        int i = 1;
+                        for (Contact contact : addedBetweenDates) {
                             System.out.println(i + ")\n" + contact + "\n");
                             i++;
                         }

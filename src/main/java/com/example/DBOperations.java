@@ -142,4 +142,35 @@ public class DBOperations {
             exception.printStackTrace();
         }
     }
+
+    // method to get all contacts added between dates
+    public static ArrayList<Contact> addedBetweenDates(String start_date, String end_date) {
+        ArrayList<Contact> contactList = new ArrayList<>();
+        String sqlQuery = "select * from address_book_2 ab inner join person_details pd on ab.person_id = pd.person_id inner join address_details ad on ab.address_id = ad.address_id where date_added between cast(? as date) and cast(? as date);";
+        try (
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(sqlQuery);) {
+            statement.setString(1, start_date);
+            statement.setString(2, end_date);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String first_name = resultSet.getString("first_name");
+                String last_name = resultSet.getString("last_name");
+                String address = resultSet.getString("address");
+                String city = resultSet.getString("city");
+                String state = resultSet.getString("state");
+                int zip = Integer.parseInt(resultSet.getString("zip"));
+                String phone_number = resultSet.getString("phone");
+                String email = resultSet.getString("email");
+
+                Contact contact = new Contact(first_name, last_name, address, city, state, zip, phone_number, email);
+                contactList.add(contact);
+            }
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+            exception.printStackTrace();
+            return new ArrayList<>();
+        }
+        return contactList;
+    }
 }

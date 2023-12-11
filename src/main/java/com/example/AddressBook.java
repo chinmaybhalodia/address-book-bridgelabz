@@ -93,4 +93,9 @@ class AddressBook {
         // for reading from DB
         return DBOperations.readContacts();
     }
+
+    // method to get contacts added between dates
+    public ArrayList<Contact> addedBetweenDates(String start_date, String end_date) {
+        return DBOperations.addedBetweenDates(start_date, end_date);
+    }
 }
