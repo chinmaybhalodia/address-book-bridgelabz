@@ -16,8 +16,6 @@ class AddressBook {
     public AddressBook(String name, String dirPath) {
         this.name = name;
         this.addressbook = new HashMap<String, Contact>();
-        // for csv operations
-        // this.filePath = dirPath + "/" + name + ".csv";
 
         // for json operations
         this.filePath = dirPath + "/" + name + "JSON.json";
@@ -87,19 +85,12 @@ class AddressBook {
                 contact);
 
         // UC13: adding contact to address book file
-
-        // adding to csv file
-        // CSVOperations.writeToFile(this.filePath, contact);
-
         // adding to json file
         JSONOperations.writeToFile(this.filePath, contact);
     }
 
     public ArrayList<Contact> getAddressBook() {
-        // for reading from csv
-        // return CSVOperations.readFromFile(this.filePath);
-
-        // for reading from json
-        return JSONOperations.readFromFile(this.filePath);
+        // for reading from DB
+        return DBOperations.readContacts();
     }
 }

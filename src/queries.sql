@@ -184,6 +184,8 @@ insert into address_book_2(person_id, address_id, name, type) values
     (4,4,"book2","Friend"),
     (5,5,"book2","Family");
     
+select * from address_book_2 ab inner join person_details pd on ab.person_id = pd.person_id inner join address_details ad on ab.address_id = ad.address_id;
+    
 -- UC13
 -- ability to execute all queries as in UC6,7,8,10
 
