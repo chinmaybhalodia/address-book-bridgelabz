@@ -25,7 +25,7 @@ public class AddressBooksManager {
         this.directoryPath = dirPath;
 
         // creating new directory to store addressbooks
-        FileOperations.createDirectory(this.directoryPath);
+        CSVOperations.createDirectory(this.directoryPath);
     }
 
     public String getDirectory() {
@@ -93,7 +93,7 @@ public class AddressBooksManager {
     }
 
     public void getAllBooks() {
-        FileOperations.listFiles(this.directoryPath);
+        CSVOperations.listFiles(this.directoryPath);
     }
 
     public void createBook(String name) {

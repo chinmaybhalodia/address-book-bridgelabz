@@ -16,34 +16,38 @@ class AddressBook {
     public AddressBook(String name, String dirPath) {
         this.name = name;
         this.addressbook = new HashMap<String, Contact>();
-        this.filePath = dirPath + "/" + name + ".csv";
-        FileOperations.createFile(this.filePath); // creating new file for address book
+        // for csv operations
+        // this.filePath = dirPath + "/" + name + ".csv";
+
+        // for json operations
+        this.filePath = dirPath + "/" + name + "JSON.json";
+        JSONOperations.createFile(this.filePath); // creating new file for address book
     }
 
     // UC12: method to sort entries by city
     public ArrayList<Contact> sortByCity() {
-        ArrayList<Contact> contacts = FileOperations.readFromFile(this.filePath);
+        ArrayList<Contact> contacts = JSONOperations.readFromFile(this.filePath);
         contacts.sort(Comparator.comparing(contact -> contact.city));
         return contacts;
     }
 
     // UC12: method to sort entries by state
     public ArrayList<Contact> sortByState() {
-        ArrayList<Contact> contacts = FileOperations.readFromFile(this.filePath);
+        ArrayList<Contact> contacts = JSONOperations.readFromFile(this.filePath);
         contacts.sort(Comparator.comparing(contact -> contact.state));
         return contacts;
     }
 
     // UC12: method to sort entries by zip
     public ArrayList<Contact> sortByZip() {
-        ArrayList<Contact> contacts = FileOperations.readFromFile(this.filePath);
+        ArrayList<Contact> contacts = JSONOperations.readFromFile(this.filePath);
         contacts.sort(Comparator.comparing(contact -> contact.zip));
         return contacts;
     }
 
     // UC11: method to sort entries by name
     public ArrayList<Contact> sortByName() {
-        ArrayList<Contact> contacts = FileOperations.readFromFile(this.filePath);
+        ArrayList<Contact> contacts = JSONOperations.readFromFile(this.filePath);
         contacts.sort(Comparator.comparing(contact -> contact.first_name));
         return contacts;
     }
@@ -83,10 +87,19 @@ class AddressBook {
                 contact);
 
         // UC13: adding contact to address book file
-        FileOperations.writeToFile(this.filePath, contact);
+
+        // adding to csv file
+        // CSVOperations.writeToFile(this.filePath, contact);
+
+        // adding to json file
+        JSONOperations.writeToFile(this.filePath, contact);
     }
 
     public ArrayList<Contact> getAddressBook() {
-        return FileOperations.readFromFile(this.filePath);
+        // for reading from csv
+        // return CSVOperations.readFromFile(this.filePath);
+
+        // for reading from json
+        return JSONOperations.readFromFile(this.filePath);
     }
 }

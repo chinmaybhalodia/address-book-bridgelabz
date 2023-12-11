@@ -25,7 +25,7 @@ public class App {
             System.out.println("\nFollowing functions can be executed:");
             System.out.println("[1] Create New Address Book");
             System.out.println("[2] Access Address Book"); // TODO: use file I/O
-            System.out.println("[3] View all Address Books");
+            System.out.println("[3] View all Address Books"); // TODO: for JSON
             System.out.println("[4] Search contacts by City");
             System.out.println("[5] Search contacts by State");
             System.out.println("[6] Count contacts by City");

@@ -2,16 +2,14 @@ package com.example;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 
-public class FileOperations {
+public class CSVOperations {
     // method to read and store data in LinkedList
     public static ArrayList<Contact> readFromFile(String filePath) {
         if (checkIfExists(filePath)) {
