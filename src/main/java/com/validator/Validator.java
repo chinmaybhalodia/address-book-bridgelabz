@@ -1,4 +1,6 @@
-import Exceptions.*;
+package com.validator;
+
+import com.exceptions.*;
 
 public class Validator {
     public static boolean validateFirstName(String firstname) throws InvalidFirstNameException {

@@ -1,4 +1,4 @@
-package Exceptions;
+package com.exceptions;
 
 public class InvalidPhoneNumberException extends Exception {
     public InvalidPhoneNumberException() {

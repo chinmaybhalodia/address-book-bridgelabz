@@ -1,7 +1,11 @@
+package com.example;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-import Exceptions.*;
+
+import com.exceptions.*;
+import com.validator.*;
 
 // UC6: Address books manager to handle multiple address books
 public class AddressBooksManager {
@@ -96,10 +100,7 @@ public class AddressBooksManager {
         addressBooks.put(name, new AddressBook(name, this.directoryPath));
     }
 
-    public void accessBook(AddressBook book)
-            throws InvalidFirstNameException, InvalidLastNameException, InvalidEmailException,
-            InvalidPhoneNumberException {
-        Scanner sc = new Scanner(System.in);
+    public void accessBook(AddressBook book, Scanner sc) {
         while (true) {
             System.out.println("Which function would you like to execute?");
             System.out.println("[1] Add New Contact");

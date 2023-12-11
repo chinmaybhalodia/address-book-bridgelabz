@@ -1,7 +1,9 @@
+package com.example;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import Exceptions.*;
-import java.util.ArrayList;
+import com.exceptions.*;
 
 public class App {
     public static void main(String[] args)
@@ -49,7 +51,7 @@ public class App {
                     String search_name = sc.nextLine();
                     if (manager.getBookbyName(search_name) != null) {
                         System.out.println("\nAccessing Address Book " + search_name);
-                        manager.accessBook(manager.getBookbyName(search_name));
+                        manager.accessBook(manager.getBookbyName(search_name), sc);
                     } else {
                         System.out.println("No Address Book found with this name.");
                     }

@@ -1,4 +1,4 @@
-package Exceptions;
+package com.exceptions;
 
 public class InvalidLastNameException extends Exception {
     public InvalidLastNameException() {
