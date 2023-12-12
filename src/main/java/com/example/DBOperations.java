@@ -47,6 +47,83 @@ public class DBOperations {
         return contactList;
     }
 
+    // adding new object to the database
+    public static void addContact(Contact contact, String name, String type) {
+        String sqlQuery_address_details = "insert into address_details(address, city, state, zip) values (?, ?, ?, ?)";
+        String sqlQuery_person_details = "insert into person_details(first_name, last_name, phone, email) values (?, ?, ?, ?)";
+        String sqlQuery_address_book = "insert into address_book_2(person_id, address_id, name, type, date_added) values (?, ?, ?, ?, date(now()))";
+        Connection connection = getConnection();
+
+        try {
+            connection.setAutoCommit(false);
+
+            // Inserting values to address_details
+            PreparedStatement add_address_details = connection.prepareStatement(sqlQuery_address_details,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            add_address_details.setString(1, contact.address);
+            add_address_details.setString(2, contact.city);
+            add_address_details.setString(3, contact.state);
+            add_address_details.setString(4, Integer.toString(contact.zip));
+            add_address_details.executeUpdate();
+
+            // Retrieving auto-generated address_id
+            int address_id;
+            try (ResultSet generatedKeys = add_address_details.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    address_id = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating address record failed, no ID obtained.");
+                }
+            }
+
+            // Inserting values to person_details
+            PreparedStatement add_person_details = connection.prepareStatement(sqlQuery_person_details,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            add_person_details.setString(1, contact.first_name);
+            add_person_details.setString(2, contact.last_name);
+            add_person_details.setString(3, contact.phone_number);
+            add_person_details.setString(4, contact.email);
+            add_person_details.executeUpdate();
+
+            // Retrieving auto-generated person_id
+            int person_id;
+            try (ResultSet generatedKeys = add_person_details.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    person_id = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating person record failed, no ID obtained.");
+                }
+            }
+
+            // Inserting values to address_book
+            PreparedStatement add_address_book = connection.prepareStatement(sqlQuery_address_book);
+            add_address_book.setInt(1, person_id);
+            add_address_book.setInt(2, address_id);
+            add_address_book.setString(3, name);
+            add_address_book.setString(4, type);
+            add_address_book.executeUpdate();
+
+            connection.commit();
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+            exception.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+                connection.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
     // check if a contact with first_name and last_name is present in DB or not
     public static boolean contactExists(String first_name, String last_name) {
         String sqlQuery = "select count(ab.person_id) as count from address_book_2 ab inner join person_details pd on ab.person_id = pd.person_id where first_name = ? and last_name = ?;";
@@ -70,7 +147,7 @@ public class DBOperations {
 
     // getting person_id for any person
     public static int getPersonID(String first_name, String last_name) {
-        String sqlQuery = "select ab.person_id as person_id from address_book_2 ab inner join person_details pd on ab.person_id = pd.person_id where first_name = ? and last_name = ?;";
+        String sqlQuery = "select person_id from person_details where first_name = ? and last_name = ?;";
         try (
                 Connection connection = getConnection();
                 PreparedStatement statement = connection.prepareStatement(sqlQuery);) {

@@ -194,8 +194,11 @@ public class AddressBooksManager {
                         }
                     }
 
+                    System.out.print("Enter Type of Contact: ");
+                    String type = sc.nextLine();
+
                     // adding new contact in the address book
-                    book.addContact(first_name, last_name, address, city, state, zip, phone_number, email);
+                    book.addContact(first_name, last_name, address, city, state, zip, phone_number, email, type);
 
                     // UC9: update city and state contacts
                     this.updateCityContacts(city,

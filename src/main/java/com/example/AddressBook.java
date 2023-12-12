@@ -79,14 +79,13 @@ class AddressBook {
 
     // UC1: add new contact function
     public void addContact(String first_name, String last_name, String address, String city, String state, int zip,
-            String phone_number, String email) {
+            String phone_number, String email, String type) {
         Contact contact = new Contact(first_name, last_name, address, city, state, zip, phone_number, email);
         addressbook.put(first_name.toLowerCase().trim(),
                 contact);
 
-        // UC13: adding contact to address book file
-        // adding to json file
-        JSONOperations.writeToFile(this.filePath, contact);
+        // adding to database
+        DBOperations.addContact(contact, this.name, type);
     }
 
     public ArrayList<Contact> getAddressBook() {
